@@ -109,7 +109,7 @@ namespace UI
 					Console.WriteLine("2. View Posts");
 					Console.WriteLine("3. Edit a Post");
 					Console.WriteLine("4. Logout");
-					Console.Write("Enter your choice: ");
+					Console.Write("Enter your choice:");
 					string choice = Console.ReadLine();
 
 					switch (choice)
