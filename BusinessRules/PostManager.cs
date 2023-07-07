@@ -29,6 +29,18 @@ namespace BusinessRules
 
 			_postRepository.CreatePost(post);
 		}
+		public void CreatePost(string content, string FacultyNumber)
+		{
+			PostContent post = new PostContent
+			{
+				Content = content,
+				FacultyNumber = facultyNumber,
+				DateCreated = DateTime.Now,
+				LastModified = DateTime.Now
+			};
+
+			_postRepository.CreatePost(post);
+		}
 
 		public void EditPost(int postNumber, string newContent)
 		{
