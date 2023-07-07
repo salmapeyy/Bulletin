@@ -117,7 +117,27 @@ namespace UI
 						case "1":
 							Console.Write("Enter your post content: ");
 							string content = Console.ReadLine();
-							_postManager.CreatePost(content, loggedInUsername);
+                            Console.WriteLine("Do you want to insert some:\n1.IMAGE\n2.VIDEO\n3.FILE\n4.NO");
+							Console.WriteLine("Enter your choice: ");
+	;						int option = Convert.ToInt32(Console.ReadLine());
+                            if (option == 1)
+                            {
+                                Console.WriteLine("Image Link");
+                            }
+                            else if (option == 2)
+                            {
+                                Console.WriteLine("Video Link");
+                            }
+                            else if (option == 3)
+                            {
+                                Console.WriteLine("File Link");
+                            }
+                            else if (option == 4)
+                            {
+                                Console.WriteLine("OKAY!");
+                            }
+						
+                            _postManager.CreatePost(content, loggedInUsername);
 							Console.WriteLine("Post created successfully!");
 							break;
 
