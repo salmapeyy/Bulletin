@@ -33,4 +33,16 @@ namespace BusinessRules
 			return _userAccess.ValidateCredentials(username, password);
 		}
 	}
+		public AdminManager 
+	{
+		private AdminManager()
+		{
+			_adminAccess = new AdminAccess();
+		}
+		
+		public bool Login(string FacultyNumber, string PassAdmin)
+		{
+			return_adminAccess.ValidateCredentials(facultyNumber, passAdmin)
+		}		
+	}
 }
