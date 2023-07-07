@@ -34,4 +34,19 @@ namespace DataLayer
 			return user != null;
 		}
 	}
+	public class AdminAccess
+	{
+		private List<AdminInfo> _admins;
+
+		public AdminAccess()
+		{
+			_admins = new List<AdminInfo>();
+		}
+
+		public bool ValidateCredentials(string FacultyNumber, string passAdmin)
+		{
+			AdminInfo admin = _admin.Find(a => a.FacultyNumber == facultyNumber && a.PassAdmin == passAdmin);
+			return admin != null;
+		}
+         }
 }
