@@ -118,7 +118,7 @@ namespace UI
 							Console.Write("Enter your post content: ");
 							string content = Console.ReadLine();
                             Console.WriteLine("Do you want to insert some:\n1.IMAGE\n2.VIDEO\n3.FILE\n4.NO");
-							Console.WriteLine("Enter your choice: ");
+							Console.WriteLine("Enter your choice:   ");
 	;						int option = Convert.ToInt32(Console.ReadLine());
                             if (option == 1)
                             {
