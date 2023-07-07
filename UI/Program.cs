@@ -122,15 +122,15 @@ namespace UI
 	;						int option = Convert.ToInt32(Console.ReadLine());
                             if (option == 1)
                             {
-                                Console.WriteLine("Image Link");
+                                Console.WriteLine("*****************Image Link*************");
                             }
                             else if (option == 2)
                             {
-                                Console.WriteLine("Video Link");
+                                Console.WriteLine("*****************Video Link*************");
                             }
                             else if (option == 3)
                             {
-                                Console.WriteLine("File Link");
+                                Console.WriteLine("*****************File Link***************");
                             }
                             else if (option == 4)
                             {
