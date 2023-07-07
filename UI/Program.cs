@@ -108,7 +108,8 @@ namespace UI
 					Console.WriteLine("\n1. Create Post");
 					Console.WriteLine("2. View Posts");
 					Console.WriteLine("3. Edit a Post");
-					Console.WriteLine("4. Logout");
+                    Console.WriteLine("4. Delete a Post");
+                    Console.WriteLine("5. Logout");
 					Console.Write("Enter your choice: ");
 					string choice = Console.ReadLine();
 
@@ -134,6 +135,7 @@ namespace UI
 								Console.WriteLine();
 							}
 							break;
+
 						//Editing A Post - Lumaoang
 						case "3":
 							Console.WriteLine("Edit a post:");
@@ -147,7 +149,18 @@ namespace UI
 							Console.WriteLine("Post edited successfully!");
 							break;
 
-						case "4":
+						//Delete A Post - Dinglasan
+                        case "4":
+                            Console.WriteLine("Delete a post:");
+                            Console.Write("Enter the post number: ");
+                            postNumber = int.Parse(Console.ReadLine());
+
+							_postManager.DeletePost(postNumber);
+
+							Console.WriteLine("Post deleted successfully!");
+                            break;
+
+                        case "5":
 							loggedIn = false;
 							loggedInUsername = string.Empty;
 							Console.WriteLine("Logout successful!");

@@ -42,5 +42,11 @@ namespace DataLayer
 				existingPost.LastModified = post.LastModified;
 			}
 		}
+		//Delete Post
+		public void DeletePost(PostContent post) 
+		{
+			post.PostId = _nextPostId--;
+			_posts.Remove(post);
+		}
 	}
 }

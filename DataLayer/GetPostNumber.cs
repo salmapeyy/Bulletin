@@ -22,6 +22,12 @@ namespace DataLayer
 			_posts.Add(post);
 		}
 
+		public void RemovePost(GetPostContent post) 
+		{
+			post.Number = _posts.Count - 1;
+			_posts.Remove(post);
+		}
+
 		public List<GetPostContent> GetPosts()
 		{
 			return _posts;

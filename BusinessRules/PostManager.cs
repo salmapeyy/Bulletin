@@ -41,6 +41,15 @@ namespace BusinessRules
 			}
 		}
 
+		public void DeletePost(int postNumber) 
+		{
+			PostContent post = _postRepository.GetPostByNumber(postNumber);
+			if (post != null)
+			{
+				_postRepository.DeletePost(post); 
+			}
+		}
+
 		public List<PostContent> GetPosts()
 		{
 			return _postRepository.GetPosts();
