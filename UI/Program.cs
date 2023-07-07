@@ -15,6 +15,7 @@ namespace UI
 	internal class Program
 	{
 		private static UserManager _userManager;
+	        private static AdminManager _adminManager;
 		private static PostManager _postManager;
 
 		private static void Main(string[] args)
@@ -38,73 +39,93 @@ namespace UI
 			//	Console.ReadLine();
 			//}
 
-			{
+			{       
+				_adminManager = new AdminManager();
 				_userManager = new UserManager();
 				_postManager = new PostManager();
 
 				Console.WriteLine("WELOME TO PUPHUB 2023!");
+				Console.WriteLine("STUDENT OR ADMIN ? ");//  Admin Access in Post "Michi"
+				Console.WriteLine("If ADMIN enter number 3 ");
 
 				bool loggedIn = false;
 				string loggedInUsername = string.Empty;
 
 				while (!loggedIn)
 				{
-					Console.WriteLine("\nDont have an Account yet? Try to create a new one!");
-					Console.WriteLine("\n1. Create New Account");
-					Console.WriteLine("2. Login Existing Account");
-					Console.Write("Enter your choice: ");
-					string choice = Console.ReadLine();
-
+					if(choice == "3")
+				  {
+					    Console.WriteLine("\n1. Create Post")
+					    Console.WriteLine("2. View Post");
+					    Console.WriteLine("3. View all post per Student");
+					    Console.WriteLine("4. Edit Post");
+						Console.WriteLine("5. Delete post per Student")
+						console.WriteLine("6. Delete your Post")
+						Console.WriteLine("7. Logout");
+						string choice ("Enter your choice: ");
+					
 					switch (choice)
-					{
-						case "1":
-							Console.Write("Username: ");
-							string newUsername = Console.ReadLine();
-							Console.Write("Password: ");
-							string newPassword = Console.ReadLine();
-
-							bool accountCreated = _userManager.CreateUser(newUsername, newPassword);
-
-							if (accountCreated)
-							{
-								Console.WriteLine("Account created successfully!\n");
-							}
-							else
-							{
-								Console.WriteLine("Username already exists. Please choose a different username.");
-							}
-
+					    {
+						case "1": 
+						    Console.WriteLine("Enter your post content: ");
+							string content = Console.ReadLine();
+							_postManager.CreatePost(content, loggedInFacultyNumber);
+							Console.WriteLine("Post created successfully!");
 							break;
-
+							
 						case "2":
-							Console.Write("Username: ");
-							string username = Console.ReadLine();
-							Console.Write("Password: ");
-							string password = Console.ReadLine();
-
-							bool loginSuccess = _userManager.Login(username, password);
-
-							if (loginSuccess)
+						    List<PostContent> posts = _postManager.GetPosts();
+							Console.WriteLine($"\nBulletin Board of {loggedInFacultyNumber}:\n");
+							foreach (PostContent post in posts)
 							{
-								loggedIn = true;
-								loggedInUsername = username;
-								Console.WriteLine("Login successful!");
+								Console.WriteLine($"Post #: {post.PostId}");
+								Console.WriteLine($"Content: {post.Content}");
+								Console.WriteLine($"Posted By: {post.Username}");
+								Console.WriteLine($"Date Created: {post.DateCreated}");
+								Console.WriteLine($"Last Modified: {post.LastModified}");
+								Console.WriteLine();
 							}
-							else
-							{
-								Console.WriteLine("Invalid username or password. Please try again.");
-							}
+							break;
+							
+						case "3":
+						    Console.WriteLine("View all post per Student");
+							// wala papo
+							 break;
+						
+						case "4":
+							Console.WriteLine("Edit a post:");
+							Console.Write("Enter the post number: ");
+							int postNumber = int.Parse(Console.ReadLine());
+							Console.Write("Enter the new content: ");
+							string newContent = Console.ReadLine();
 
+							_postManager.EditPost(postNumber, newContent);
+
+							Console.WriteLine("Post edited successfully!");
+							break;
+							
+						case "5":
+							Console.WriteLine("Delete post per Student");
+							// wala papo 
+							break;
+						
+						case "6":
+						    Console.WriteLine("Delete your post");
+							// wala papo 
+							break;
+						case "7":
+							loggedIn = false;
+							loggedInUsername = string.Empty;
+							Console.WriteLine("Logout successful!");
 							break;
 
 						default:
 							Console.WriteLine("Invalid choice. Please try again.");
 							break;
-					}
-				}
-
-				while (loggedIn)
-				{
+					    }	
+				        }
+					else if (choice == "2")
+				    {
 					Console.WriteLine("\n1. Create Post");
 					Console.WriteLine("2. View Posts");
 					Console.WriteLine("3. Edit a Post");
@@ -156,6 +177,7 @@ namespace UI
 						default:
 							Console.WriteLine("Invalid choice. Please try again.");
 							break;
+					        }
 					}
 				}
 			}
