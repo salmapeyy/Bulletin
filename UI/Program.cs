@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 
 namespace UI
@@ -19,30 +20,14 @@ namespace UI
 
 		private static void Main(string[] args)
 		{
-			//database
-			//{
-			//	string connectionString = "Server=iphost;Port=3306;Database=bulletinpost;Uid=bulletin;Pwd=123;";
 
-			//	DatabaseManager databaseManager = new DatabaseManager(connectionString);
-
-			//	string tableName = "Post Database";
-
-			//	Console.WriteLine("Datas from Post Database");
-
-			//	var names = databaseManager.GetNamesFromTable(tableName);
-			//	foreach (var name in names)
-			//	{
-			//		Console.WriteLine(name);
-			//	}
-
-			//	Console.ReadLine();
-			//}
-
+			
 			{
 				_userManager = new UserManager();
 				_postManager = new PostManager();
 
 				Console.WriteLine("WELOME TO PUPHUB 2023!");
+				DatabaseManager.Connect();
 
 				bool loggedIn = false;
 				string loggedInUsername = string.Empty;

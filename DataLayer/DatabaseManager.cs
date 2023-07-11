@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,95 +10,65 @@ namespace DataLayer
 {
 	public class DatabaseManager
 	{
-		//	private string _connectionString;
+		static string connectionString
+	   = "Server=tcp:20.205.106.109,1433;Database=PostManagement;User Id=sa;Password=POST123!;";
+		private static SqlConnection sqlConnection;
 
-		//	public DatabaseManager(string connectionString)
-		//	{
-		//		_connectionString = connectionString;
-		//	}
+		static public void Connect()
+		{
+			sqlConnection.Open();	
+		}
 
-		//	public void ConnectAndExecute()
-		//	{
-		//		using (SqlConnection connection = new SqlConnection(_connectionString))
-		//		{
-		//			try
-		//			{
-		//				connection.Open();
-		//				Console.WriteLine("Connected to the database.");
+		public DatabaseManager()
+		{
+			sqlConnection = new SqlConnection(connectionString);
+		}
 
+		public List<PostContent> GetPosts()
+		{
+			var selectStatement = "SELECT PostNumber, StudentNumber, PostContent, DateTimePosted FROM Post";
+			SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
+			sqlConnection.Open();
+			SqlDataReader reader = selectCommand.ExecuteReader();
 
-		//			}
-		//			catch (Exception ex)
-		//			{
-		//				Console.WriteLine($"Error: {ex.Message}");
-		//			}
-		//			finally
-		//			{
-		//				connection.Close();
-		//				Console.WriteLine("Disconnected from the database.");
-		//			}
-		//		}
-		//	}
+			var posts = new List<PostContent>();
 
-		//	public List<string> GetNamesFromTable(string tableName)
-		//	{
-		//		List<string> names = new List<string>();
+			while (reader.Read())
+			{
+				posts.Add(new PostContent
+				{
+					PostId = Convert.ToInt16(reader["Post Number"].ToString()),
+					Username = reader["Username"].ToString(),
+					Content = reader["PostContent"].ToString(),
+					DateCreated = DateTime.Now,
+					LastModified = DateTime.Now
+				});
+			}
 
-		//		using (SqlConnection connection = new SqlConnection(_connectionString))
-		//		{
-		//			try
-		//			{
-		//				connection.Open();
+			sqlConnection.Close();
+			return posts;
+		}
 
-		//				string query = $"SELECT Name FROM {tableName}";
-		//				SqlCommand command = new SqlCommand(query, connection);
+		public int CreatePost(PostContent post)
+		{
+			int success;
+			var insertStatement = "INSERT INTO Post VALUES (@Post Number, @Username, @Content,  @Date Created, @LastModified)";
 
-		//				SqlDataReader reader = command.ExecuteReader();
-		//				while (reader.Read())
-		//				{
-		//					string name = reader.GetString(0);
-		//					names.Add(name);
-		//				}
-		//				reader.Close();
-		//			}
-		//			catch (Exception ex)
-		//			{
-		//				Console.WriteLine($"Error: {ex.Message}");
-		//			}
-		//			finally
-		//			{
-		//				connection.Close();
-		//			}
-		//		}
+			SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
 
-		//		return names;
-		//	}
+			insertCommand.Parameters.AddWithValue("@Post Number", post.PostId);
+			insertCommand.Parameters.AddWithValue("@Username", post.Username);
+			insertCommand.Parameters.AddWithValue("@Content", post.Content);
+			insertCommand.Parameters.AddWithValue("@Date Createad", post.DateCreated);
+			insertCommand.Parameters.AddWithValue("@Last Modified", post.LastModified);
+			sqlConnection.Open();
 
-		//	public bool InsertNameIntoTable(string tableName, string name)
-		//	{
-		//		using (SqlConnection connection = new SqlConnection(_connectionString))
-		//		{
-		//			try
-		//			{
-		//				connection.Open();
+			success = insertCommand.ExecuteNonQuery();
 
-		//				string query = $"INSERT INTO {tableName} (Name) VALUES (@name)";
-		//				SqlCommand command = new SqlCommand(query, connection);
-		//				command.Parameters.AddWithValue("@name", name);
+			sqlConnection.Close();
 
-		//				int rowsAffected = command.ExecuteNonQuery();
-		//				return rowsAffected > 0;
-		//			}
-		//			catch (Exception ex)
-		//			{
-		//				Console.WriteLine($"Error: {ex.Message}");
-		//				return false;
-		//			}
-		//			finally
-		//			{
-		//				connection.Close();
-		//			}
-		//		}
-		//	}
+			return success;
+		}
+
 	}
 }
