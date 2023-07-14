@@ -15,14 +15,15 @@ namespace DataLayer
 		{
 			_posts = new List<GetPostContent>();
 		}
-		//Automatic Increment for PostNumber
+
+		// Automatic Increment for PostNumber
 		public void AddPost(GetPostContent post)
 		{
 			post.Number = _posts.Count + 1;
 			_posts.Add(post);
 		}
 
-		public void RemovePost(GetPostContent post) 
+		public void RemovePost(GetPostContent post)
 		{
 			post.Number = _posts.Count - 1;
 			_posts.Remove(post);

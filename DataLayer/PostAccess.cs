@@ -9,44 +9,36 @@ namespace DataLayer
 {
 	public class PostAccess
 	{
-		private List<PostContent> _posts;
-		private int _nextPostId;
+		private DatabaseManager _databaseManager;
 
 		public PostAccess()
 		{
-			_posts = new List<PostContent>();
-			_nextPostId = 1;
+			_databaseManager = new DatabaseManager();
 		}
-		//Creating Post
+
 		public void CreatePost(PostContent post)
 		{
-			post.PostId = _nextPostId++;
-			_posts.Add(post);
+			_databaseManager.CreatePost(post);
 		}
-		//Listing Post
+
 		public List<PostContent> GetPosts()
 		{
-			return _posts;
+			return _databaseManager.GetPosts();
 		}
+
 		public PostContent GetPostByNumber(int postNumber)
 		{
-			return _posts.FirstOrDefault(post => post.PostId == postNumber);
+			return _databaseManager.GetPostByNumber(postNumber);
 		}
-		//Editing Post
+
 		public void UpdatePost(PostContent post)
 		{
-			PostContent existingPost = _posts.FirstOrDefault(p => p.PostId == post.PostId);
-			if (existingPost != null)
-			{
-				existingPost.Content = post.Content;
-				existingPost.LastModified = post.LastModified;
-			}
+			_databaseManager.UpdatePost(post);
 		}
-		//Delete Post
-		public void DeletePost(PostContent post) 
+
+		public void DeletePost(PostContent post)
 		{
-			post.PostId = _nextPostId--;
-			_posts.Remove(post);
+			_databaseManager.DeletePost(post);
 		}
 	}
 }
