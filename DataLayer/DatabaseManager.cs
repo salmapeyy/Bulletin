@@ -18,14 +18,10 @@ namespace DataLayer
 			sqlConnection = new SqlConnection(connectionString);
 		}
 
-		public static void Connect()
-		{
-			sqlConnection.Open();
-		}
 
 		public List<PostContent> GetPosts()
 		{
-			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified FROM Post";
+			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified FROM StudentsPost";
 			SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 			sqlConnection.Open();
 			SqlDataReader reader = selectCommand.ExecuteReader();
@@ -51,7 +47,7 @@ namespace DataLayer
 		public int CreatePost(PostContent post)
 		{
 			int success;
-			var insertStatement = "INSERT INTO Post VALUES (@PostNumber, @Username, @PostContent,  @DateCreated, @LastModified)";
+			var insertStatement = "INSERT INTO StudentsPost VALUES (@PostNumber, @Username, @PostContent,  @DateCreated, @LastModified)";
 
 			SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
 
@@ -69,9 +65,9 @@ namespace DataLayer
 			return success;
 		}
 
-		public PostContent GetPostByNumber(int postNumber)
+		public PostContent GetPostNumber(int postNumber)
 		{
-			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified FROM Post WHERE PostNumber = @PostNumber";
+			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified FROM StudentsPost WHERE PostNumber = @PostNumber";
 			SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 			selectCommand.Parameters.AddWithValue("@PostNumber", postNumber);
 			sqlConnection.Open();
@@ -97,7 +93,8 @@ namespace DataLayer
 
 		public void UpdatePost(PostContent post)
 		{
-			var updateStatement = "UPDATE Post SET Post = @PostContent, LastModified = @LastModified WHERE PostNumber = @PostNumber";
+			//CHANGES
+			var updateStatement = "UPDATE StudentsPost SET PostContent = @PostContent, LastModified = @LastModified WHERE PostNumber = @PostNumber";
 			SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection);
 			updateCommand.Parameters.AddWithValue("@PostNumber", post.PostId);
 			updateCommand.Parameters.AddWithValue("@PostContent", post.Content);
@@ -109,7 +106,7 @@ namespace DataLayer
 
 		public void DeletePost(PostContent post)
 		{
-			var deleteStatement = "DELETE FROM Post WHERE PostNumber = @PostNumber";
+			var deleteStatement = "DELETE FROM StudentsPost WHERE PostNumber = @PostNumber";
 			SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
 			deleteCommand.Parameters.AddWithValue("@PostNumber", post.PostId);
 			sqlConnection.Open();

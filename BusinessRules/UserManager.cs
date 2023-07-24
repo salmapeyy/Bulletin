@@ -17,17 +17,6 @@ namespace BusinessRules
 			_userAccess = new UserAccess();
 		}
 
-		public bool CreateUser(string username, string password)
-		{
-			UserInfo user = new UserInfo
-			{
-				Username = username,
-				Password = password
-			};
-
-			return _userAccess.CreateUser(user);
-		}
-
 		public bool Login(string username, string password)
 		{
 			return _userAccess.ValidateCredentials(username, password);

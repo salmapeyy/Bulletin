@@ -18,6 +18,7 @@ namespace DataLayer
 
 		public void CreatePost(PostContent post)
 		{
+			post.PostId = _databaseManager.GetPosts().Count + 1;
 			_databaseManager.CreatePost(post);
 		}
 
@@ -28,7 +29,7 @@ namespace DataLayer
 
 		public PostContent GetPostByNumber(int postNumber)
 		{
-			return _databaseManager.GetPostByNumber(postNumber);
+			return _databaseManager.GetPostNumber(postNumber);
 		}
 
 		public void UpdatePost(PostContent post)

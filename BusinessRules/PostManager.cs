@@ -10,11 +10,11 @@ namespace BusinessRules
 {
 	public class PostManager
 	{
-		private PostAccess _postRepository;
+		private PostAccess _postAccess;
 
 		public PostManager()
 		{
-			_postRepository = new PostAccess();
+			_postAccess = new PostAccess();
 		}
 
 		public void CreatePost(string content, string username)
@@ -27,32 +27,43 @@ namespace BusinessRules
 				LastModified = DateTime.Now
 			};
 
-			_postRepository.CreatePost(post);
+			_postAccess.CreatePost(post);
 		}
 
 		public void EditPost(int postNumber, string newContent)
 		{
-			PostContent post = _postRepository.GetPostByNumber(postNumber);
+			PostContent post = _postAccess.GetPostByNumber(postNumber);
 			if (post != null)
 			{
 				post.Content = newContent;
 				post.LastModified = DateTime.Now;
-				_postRepository.UpdatePost(post);
+				_postAccess.UpdatePost(post);
+				Console.WriteLine("Post Edited Successfully!");
+			}
+			else
+			{
+				Console.WriteLine("No Post Found!");
 			}
 		}
 
 		public void DeletePost(int postNumber)
 		{
-			PostContent post = _postRepository.GetPostByNumber(postNumber);
+			PostContent post = _postAccess.GetPostByNumber(postNumber);
 			if (post != null)
 			{
-				_postRepository.DeletePost(post);
+				_postAccess.DeletePost(post);
+				Console.WriteLine("Post Deleted Successfully!");
+			}
+			else
+			{
+				Console.WriteLine("No Post Found!");
 			}
 		}
 
-		public List<PostContent> GetPosts()
+		public List<PostContent> GetPostsForUser(string username)
 		{
-			return _postRepository.GetPosts();
+			var allPosts = _postAccess.GetPosts();
+			return allPosts.FindAll(post => post.Username == username);
 		}
 	}
 }
