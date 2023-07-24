@@ -18,7 +18,9 @@ namespace DataLayer
 
 		public void CreatePost(PostContent post)
 		{
-			post.PostId = _databaseManager.GetPosts().Count + 1;
+			int maxPostNumber = GetLatestPostNumber(post.Username);
+			post.PostId = maxPostNumber + 1;
+
 			_databaseManager.CreatePost(post);
 		}
 
@@ -40,6 +42,12 @@ namespace DataLayer
 		public void DeletePost(PostContent post)
 		{
 			_databaseManager.DeletePost(post);
+		}
+		private int GetLatestPostNumber(string username)
+		{
+			var posts = _databaseManager.GetPosts().Where(post => post.Username == username);
+			int maxPostNumber = posts.Any() ? posts.Max(post => post.PostId) : 0;
+			return maxPostNumber;
 		}
 	}
 }

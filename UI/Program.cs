@@ -99,6 +99,7 @@ namespace UI
 
 						_postManager.DeletePost(postNumberToDelete);
 
+						Console.WriteLine("Post deleted successfully!");
 						break;
 
 					case "5":

@@ -15,11 +15,5 @@ namespace Models
 		//Editing A Post Time and Date Changes
 		public DateTime DateCreated { get; set; }
 		public DateTime LastModified { get; set; }
-
-		public void EditPost(string newContent)
-		{
-			Content = newContent;
-			LastModified = DateTime.Now;
-		}
 	}
 }

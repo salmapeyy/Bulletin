@@ -11,6 +11,7 @@ namespace BusinessRules
 	public class PostManager
 	{
 		private PostAccess _postAccess;
+		 private string loggedInUsername;
 
 		public PostManager()
 		{
