@@ -15,5 +15,6 @@ namespace Models
 		//Editing A Post Time and Date Changes
 		public DateTime DateCreated { get; set; }
 		public DateTime LastModified { get; set; }
+		public string PostType { get; set; }
 	}
 }

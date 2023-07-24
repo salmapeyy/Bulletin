@@ -18,17 +18,19 @@ namespace BusinessRules
 			_postAccess = new PostAccess();
 		}
 
-		public void CreatePost(string content, string username)
+		public void CreatePost(string content, string username, string postType)
 		{
 			PostContent post = new PostContent
 			{
 				Content = content,
 				Username = username,
 				DateCreated = DateTime.Now,
-				LastModified = DateTime.Now
+				LastModified = DateTime.Now,
+				PostType = postType
 			};
 
 			_postAccess.CreatePost(post);
+			Console.WriteLine("Post Created Successfully!");
 		}
 
 		public void EditPost(int postNumber, string newContent)

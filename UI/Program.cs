@@ -70,10 +70,37 @@ namespace UI
 				switch (choice)
 				{
 					case "1":
-						Console.Write("Enter your post content: ");
+						Console.WriteLine("Select the post type:");
+						Console.WriteLine("A. Image");
+						Console.WriteLine("B. Text");
+						Console.WriteLine("C. Video");
+						Console.Write("Enter your Choice: ");
+						string postTypeInput = Console.ReadLine();
+
+						string postType;
+						if (postTypeInput.Equals("A", StringComparison.OrdinalIgnoreCase))
+						{
+							postType = "Image";
+						}
+						else if (postTypeInput.Equals("B", StringComparison.OrdinalIgnoreCase))
+						{
+							postType = "Text";
+						}
+						else if (postTypeInput.Equals("C", StringComparison.OrdinalIgnoreCase))
+						{
+							postType = "Video";
+						}
+						else
+						{
+							Console.WriteLine("Invalid post type selection. Please try again.");
+							break;
+						}
+
+						Console.Write("Enter your post content/link: ");
 						string content = Console.ReadLine();
-						_postManager.CreatePost(content, loggedInUsername);
-						Console.WriteLine("Post created successfully!");
+
+						_postManager.CreatePost(content, loggedInUsername, postType);
+					
 						break;
 
 					case "2":
@@ -98,8 +125,6 @@ namespace UI
 						int postNumberToDelete = int.Parse(Console.ReadLine());
 
 						_postManager.DeletePost(postNumberToDelete);
-
-						Console.WriteLine("Post deleted successfully!");
 						break;
 
 					case "5":
