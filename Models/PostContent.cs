@@ -9,6 +9,7 @@ namespace Models
 {
 	public class PostContent
 	{
+		public string FacultyNumber { get; set; }	
 		public int PostId { get; set; }
 		public string Content { get; set; }
 		public string Username { get; set; }

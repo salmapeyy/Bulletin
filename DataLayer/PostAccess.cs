@@ -16,6 +16,8 @@ namespace DataLayer
 			_databaseManager = new DatabaseManager();
 		}
 
+
+
 		public void CreatePost(PostContent post)
 		{
 			int maxPostNumber = GetLatestPostNumber(post.Username);
@@ -49,5 +51,10 @@ namespace DataLayer
 			int maxPostNumber = posts.Any() ? posts.Max(post => post.PostId) : 0;
 			return maxPostNumber;
 		}
-	}
+
+        public void CreatePostAdmin(PostContent post)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
