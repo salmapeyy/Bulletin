@@ -11,7 +11,7 @@ namespace BusinessRules
 	public class PostManager
 	{
 		private PostAccess _postAccess;
-		 private string loggedInUsername;
+		private string loggedInUsername;
 
 		public PostManager()
 		{
@@ -67,6 +67,10 @@ namespace BusinessRules
 		{
 			var allPosts = _postAccess.GetPosts();
 			return allPosts.FindAll(post => post.Username == username);
+		}
+		public List<PostContent> GetPosts()
+		{
+			return _postAccess.GetPosts();
 		}
 	}
 }

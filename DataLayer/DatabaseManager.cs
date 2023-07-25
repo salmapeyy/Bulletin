@@ -10,6 +10,7 @@ namespace DataLayer
 {
 	public class DatabaseManager
 	{
+		//DATABASE CONNECTION
 		static string connectionString = "Data Source = localhost; Initial Catalog = PUPHubPosts; Integrated Security = True;";
 		private static SqlConnection sqlConnection;
 
