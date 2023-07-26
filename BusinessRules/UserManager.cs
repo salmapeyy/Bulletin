@@ -21,5 +21,9 @@ namespace BusinessRules
 		{
 			return _userAccess.ValidateCredentials(username, password);
 		}
-	}
+        //public bool CorrectUser(string username)
+        //{
+        //    return _userAccess.ValidateCredentials(username);
+        //}
+    }
 }

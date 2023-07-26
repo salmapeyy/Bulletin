@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataLayer
-{
+{	
 	public class DatabaseManager
 	{
 		//DATABASE CONNECTION
-		static string connectionString = "Data Source = localhost; Initial Catalog = PUPHubPosts; Integrated Security = True;";
+		static string connectionString = "Data Source = LAPTOP-I5CIRGCD\\SQLEXPRESS; Initial Catalog = Bulletin; Integrated Security = True;";
 		private static SqlConnection sqlConnection;
 
 		public DatabaseManager()

@@ -220,10 +220,23 @@ namespace UI
 
 					case "4":
 						Console.WriteLine("Delete a post:");
-						Console.Write("Enter the post number: ");
-						int postNumberToDelete = int.Parse(Console.ReadLine());
+						Console.Write("Enter the Username to delete a post: ");
+						string username = Console.ReadLine();
 
-						_postManager.DeletePost(postNumberToDelete);
+						//bool correctuser = _userManager.CorrectUser(username);
+
+						//if (correctuser)
+						//{
+						//	Console.WriteLine("Enter Post Number to Delete: ");
+						//	int postNumberToDelete = int.Parse(Console.ReadLine());
+						//	_postManager.DeletePost(postNumberToDelete);
+						//}
+						//else
+						//{
+						//	Console.WriteLine("Invalid username. Please try again.");
+						//}
+
+
 						break;
 
 					case "5":

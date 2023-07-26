@@ -72,5 +72,14 @@ namespace DataLayer
 
 			return false;
 		}
-	}
+        //public bool ValidateCredentials2(string username)
+        //{
+        //    if (_userCredentials.TryGetValue(username))
+        //    {
+        //        return studentNumber == storedStudentNumber;
+        //    }
+
+        //    return false;
+        //}
+    }
 }
