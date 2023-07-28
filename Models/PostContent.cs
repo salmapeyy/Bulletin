@@ -16,5 +16,9 @@ namespace Models
 		public DateTime DateCreated { get; set; }
 		public DateTime LastModified { get; set; }
 		public string PostType { get; set; }
+
+		public int Likes { get; set; }
+		public int Dislikes { get; set; }
+
 	}
 }

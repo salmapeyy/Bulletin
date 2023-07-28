@@ -13,8 +13,10 @@ namespace DataLayer
 
 		public UserAccess()
 		{
-			_userCredentials = new Dictionary<string, string>
+			_userCredentials = new Dictionary<string, string> 
 			{
+
+				//INMEMORY DATA
 				{ "NelsonAbn", "2021-00413-BN-0" },
 				{ "itsme_kai", "2021-00217-BN-0" },
 				{ "JB", "2021-00417-BN-0" },
@@ -61,6 +63,10 @@ namespace DataLayer
 				{"Vic", "2021-00266-BN-0"},
 
 		};
+		}
+		public bool UserExists(string username)
+		{
+			return _userCredentials.ContainsKey(username);
 		}
 
 		public bool ValidateCredentials(string username, string studentNumber)
