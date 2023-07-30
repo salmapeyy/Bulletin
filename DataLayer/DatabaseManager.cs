@@ -122,10 +122,11 @@ namespace DataLayer
 								"LastModified = @LastModified, " +
 								"Likes = @Likes, " +      // Update Likes count
 								"Dislikes = @Dislikes " + // Update Dislikes count
-								"WHERE PostNumber = @PostNumber";
+								"WHERE PostNumber = @PostNumber AND Username = @Username";
 
 			SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection);
 			updateCommand.Parameters.AddWithValue("@PostNumber", post.PostId);
+			updateCommand.Parameters.AddWithValue("@Username", post.Username);
 			updateCommand.Parameters.AddWithValue("@PostContent", post.Content);
 			updateCommand.Parameters.AddWithValue("@LastModified", post.LastModified);
 			updateCommand.Parameters.AddWithValue("@Likes", post.Likes);       
@@ -138,9 +139,10 @@ namespace DataLayer
 		//DELETE DATA IN DATABASE WHEN DELETING A POST
 			public void DeletePost(PostContent post)
 		{
-			var deleteStatement = "DELETE FROM PUPHubBulletinPost WHERE PostNumber = @PostNumber";
+			var deleteStatement = "DELETE FROM PUPHubBulletinPost WHERE PostNumber = @PostNumber AND Username = @Username";
 			SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
 			deleteCommand.Parameters.AddWithValue("@PostNumber", post.PostId);
+			deleteCommand.Parameters.AddWithValue("@Username", post.Username);
 			sqlConnection.Open();
 			deleteCommand.ExecuteNonQuery();
 			sqlConnection.Close();

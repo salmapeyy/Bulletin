@@ -30,10 +30,10 @@ namespace BusinessRules
 			};
 
 			_postAccess.CreatePost(post);
-			Console.WriteLine("\n------------------- Post Created Successfully! -----------------");
+			//Console.WriteLine("\n------------------- Post Created Successfully! -----------------");
 		}
 		//UPDATE
-		public void EditPost(int postNumber, string newContent)
+		public bool EditPost(int postNumber, string newContent)
 		{
 			var post = _postAccess.GetPostByNumber(postNumber);
 			if (post != null)
@@ -41,12 +41,16 @@ namespace BusinessRules
 				post.Content = newContent;
 				post.LastModified = DateTime.Now;
 				_postAccess.UpdatePost(post);
-				Console.WriteLine("\n------------------- Post Edited Successfully! -----------------");
+				//Console.WriteLine("\n------------------- Post Edited Successfully! -----------------");
+				return true;
 			}
 			else
 			{
-				Console.WriteLine("\n------------------- No Post Found! -----------------");
+				//Console.WriteLine("\n------------------- No Post Found! -----------------");
+				return false;
+
 			}
+
 		}
 
 		public void DeletePost(int postNumber)
@@ -71,7 +75,7 @@ namespace BusinessRules
 			if (userPosts.Any())
 			{
 				Console.WriteLine($"Your Posts:");
-				DisplayPosts(userPosts);
+				//DisplayPosts(userPosts);
 
 				Console.Write("Enter the post number to delete: ");
 				if (int.TryParse(Console.ReadLine(), out int postNumberToDelete))
@@ -80,11 +84,11 @@ namespace BusinessRules
 					if (postToDelete != null)
 					{
 						DeletePost(postNumberToDelete);
-						Console.WriteLine("\n------------------- Post Deleted Successfully! ------------------");
+						//Console.WriteLine("\n------------------- Post Deleted Successfully! ------------------");
 					}
 					else
 					{
-						Console.WriteLine("\n------------------- Invalid post number or post not found -------------------");
+						//Console.WriteLine("\n------------------- Invalid post number or post not found -------------------");
 					}
 				}
 				else
@@ -153,7 +157,7 @@ namespace BusinessRules
 				var userPosts = GetPostsForUser(userToDelete);
 
 				Console.WriteLine($"Posts of user '{userToDelete}':");
-				DisplayPosts(userPosts);
+				//DisplayPosts(userPosts);
 
 				Console.Write("\nEnter the post number to delete: ");
 				if (int.TryParse(Console.ReadLine(), out int postNumberToDelete))
@@ -198,41 +202,25 @@ namespace BusinessRules
 			return _postAccess.GetPosts();
 		}
 
-		private void DisplayPosts(List<PostContent> posts)
-		{
-			foreach (var post in posts)
-			{
-				Console.WriteLine($"Post #: {post.PostId}");
-				Console.WriteLine($"Content: {post.Content}");
-				Console.WriteLine($"Posted By: {post.Username}");
-				Console.WriteLine($"Last Modified: {post.LastModified}");
-				Console.WriteLine();
-			}
-
-		}
 
 		//METHODS FOR LIKE AND DISLIKE
-			public void LikeOrDislikePost(int postNumber, bool isLiked)
-			{
+		public void LikeOrDislikePost(int postNumber, bool isLiked)
+		{
 			var post = _postAccess.GetPostByNumber(postNumber);
 			if (post != null)
 			{
 				if (isLiked)
 				{
 					post.Likes++;
-					Console.WriteLine("Post Liked!");
+					//Console.WriteLine("Post Liked!");
 				}
 				else
 				{
 					post.Dislikes++;
-					Console.WriteLine("Post Disliked!");
+					//Console.WriteLine("Post Disliked!");
 				}
 
 				_postAccess.UpdatePost(post);
-			}
-			else
-			{
-				Console.WriteLine("Invalid post number or post does not exist.");
 			}
 		}
 	}

@@ -166,6 +166,7 @@ namespace UI
 						string content = Console.ReadLine();
 
 						_postManager.CreatePost(content, loggedInUsername, postType);
+						Console.WriteLine("\n------------------- Post Created Successfully! -----------------");  
 						break;
 
 					case "2":
@@ -202,7 +203,15 @@ namespace UI
 						Console.Write("Enter the new content: ");
 						string newContent = Console.ReadLine();
 
-						_postManager.EditPost(postNumber, newContent);
+						bool postEdited = _postManager.EditPost(postNumber, newContent);
+						if (postEdited)
+						{
+							Console.WriteLine("Post edited successfully");
+						}
+						else
+						{
+							Console.WriteLine("No post found");
+						}
 						break;
 
 					case "4":
@@ -223,10 +232,13 @@ namespace UI
 							if (likeOrDislikeChoice == "like")
 							{
 								_postManager.LikeOrDislikePost(postNumberToInteract, isLiked: true);
+								Console.WriteLine("Post Liked!");
+
 							}
 							else if (likeOrDislikeChoice == "dislike")
 							{
 								_postManager.LikeOrDislikePost(postNumberToInteract, isLiked: false);
+								Console.WriteLine("Post Disliked!");
 							}
 							else
 							{
