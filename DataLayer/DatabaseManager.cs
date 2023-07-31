@@ -22,7 +22,7 @@ namespace DataLayer
 		// LISTING DATAS
 		public List<PostContent> GetPosts()
 		{
-			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes FROM PUPHubBulletinPost";
+			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes FROM PUPHubBulletinPosts";
 			SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 			sqlConnection.Open();
 
@@ -48,11 +48,6 @@ namespace DataLayer
 					}
 				}
 			}
-			catch (Exception ex)
-			{
-				// Handle the exception (e.g., log the error or display a user-friendly message)
-				Console.WriteLine("An error occurred while fetching posts: " + ex.Message);
-			}
 			finally
 			{
 				sqlConnection.Close();
@@ -64,7 +59,7 @@ namespace DataLayer
 		public int CreatePost(PostContent post)
 		{
 			int success;
-			var insertStatement = "INSERT INTO PUPHubBulletinPost (PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes) " +
+			var insertStatement = "INSERT INTO PUPHubBulletinPosts (PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes) " +
 								  "VALUES (@PostNumber, @Username, @PostContent, @DateCreated, @LastModified, @Likes, @Dislikes)";
 
 
@@ -88,7 +83,7 @@ namespace DataLayer
 		// POSTNUMBER IN DATABASE
 		public PostContent GetPostNumber(int postNumber)
 		{
-			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes FROM PUPHubBulletinPost WHERE PostNumber = @PostNumber";
+			var selectStatement = "SELECT PostNumber, Username, PostContent, DateCreated, LastModified, Likes, Dislikes FROM PUPHubBulletinPosts WHERE PostNumber = @PostNumber";
 			SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 			selectCommand.Parameters.AddWithValue("@PostNumber", postNumber);
 			sqlConnection.Open();
@@ -118,7 +113,7 @@ namespace DataLayer
 		public void UpdatePost(PostContent post)
 		{
 			
-			var updateStatement = "UPDATE PUPHubBulletinPost SET PostContent = @PostContent, " +
+			var updateStatement = "UPDATE PUPHubBulletinPosts SET PostContent = @PostContent, " +
 								"LastModified = @LastModified, " +
 								"Likes = @Likes, " +      // Update Likes count
 								"Dislikes = @Dislikes " + // Update Dislikes count
@@ -139,7 +134,7 @@ namespace DataLayer
 		//DELETE DATA IN DATABASE WHEN DELETING A POST
 			public void DeletePost(PostContent post)
 		{
-			var deleteStatement = "DELETE FROM PUPHubBulletinPost WHERE PostNumber = @PostNumber AND Username = @Username";
+			var deleteStatement = "DELETE FROM PUPHubBulletinPosts WHERE PostNumber = @PostNumber AND Username = @Username";
 			SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
 			deleteCommand.Parameters.AddWithValue("@PostNumber", post.PostId);
 			deleteCommand.Parameters.AddWithValue("@Username", post.Username);

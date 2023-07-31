@@ -64,10 +64,6 @@ namespace DataLayer
 
 		};
 		}
-		public bool UserExists(string username)
-		{
-			return _userCredentials.ContainsKey(username);
-		}
 
 		public bool ValidateCredentials(string username, string studentNumber)
 		{

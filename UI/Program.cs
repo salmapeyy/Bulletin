@@ -58,6 +58,8 @@ namespace UI
 			DisplayPosts(allPosts);
 		}
 
+
+
 		private static void Main(string[] args)
 		{
 			_userManager = new UserManager();
@@ -215,8 +217,121 @@ namespace UI
 						break;
 
 					case "4":
-						_postManager.DeleteOwnPostOrForUser(loggedInUsername);
+						if (isAdmin)
+						{
+							Console.WriteLine("\nSelect who's post you want to delete:");
+							Console.WriteLine("A. My own post");
+							Console.WriteLine("B. Other's post");
+
+							Console.Write("Select: ");
+							string deleteChoice = Console.ReadLine().ToLower();
+
+							if (deleteChoice == "a")
+							{
+								var posts = _postManager.GetPostsForUser(loggedInUsername);
+								if (posts.Count > 0)
+								{
+									Console.WriteLine($"\nYour Posts:\n");
+									DisplayPosts(posts);
+
+									Console.Write("Enter the number of the post you want to delete: ");
+									if (int.TryParse(Console.ReadLine(), out int postNumberToDelete))
+									{
+										bool postDeleted = _postManager.DeletePostByNumber(postNumberToDelete);
+										if (postDeleted)
+										{
+											Console.WriteLine("\n------ POST DELETED SUCCESSFULLY --------");
+											posts = _postManager.GetPostsForUser(loggedInUsername);
+											if (posts.Count > 0)
+											{
+												Console.WriteLine($"\nYour Remaining Posts:\n");
+												DisplayPosts(posts);
+											}
+											else
+											{
+												Console.WriteLine("\nNo more posts found for this user.");
+											}
+										}
+										else
+										{
+											Console.WriteLine("\nNo post found.");
+										}
+									}
+									else
+									{
+										Console.WriteLine("\nInvalid post number. Please enter a valid number.");
+									}
+								}
+								else
+								{
+									Console.WriteLine("\nNo posts found for this user.");
+								}
+							}
+							else if (deleteChoice == "b")
+							{
+								Console.Write("\nSelect the username: ");
+								string usernameToDelete = Console.ReadLine();
+								var postsToDelete = _postManager.GetPostsForUser(usernameToDelete);
+
+								Console.WriteLine("\nPosts of the selected user:");
+								DisplayPosts(postsToDelete);
+
+								Console.Write("\nEnter the post number to delete: ");
+								if (int.TryParse(Console.ReadLine(), out int postNumberToDelete))
+								{
+									bool postDeleted = _postManager.DeletePostByNumber(postNumberToDelete);
+									if (postDeleted)
+									{
+										Console.WriteLine("\n---- Post deleted successfully-----");
+									}
+									else
+									{
+										Console.WriteLine("\nNo post found.");
+									}
+								}
+								else
+								{
+									Console.WriteLine("\nInvalid post number. Please enter a valid number.");
+								}
+							}
+							else
+							{
+								Console.WriteLine("\nInvalid choice.");
+							}
+						}
+						else
+						{
+							var posts = _postManager.GetPostsForUser(loggedInUsername);
+							if (posts.Count > 0)
+							{
+								Console.WriteLine($"\nYour Posts:\n");
+								DisplayPosts(posts);
+
+								Console.Write("Enter the number of the post you want to delete: ");
+								if (int.TryParse(Console.ReadLine(), out int postNumberToDelete))
+								{
+									bool postDeleted = _postManager.DeletePostByNumber(postNumberToDelete);
+									if (postDeleted)
+									{
+										Console.WriteLine("\n------ POST DELETED SUCCESSFULLY --------");
+									}
+									else
+									{
+										Console.WriteLine("\nNo post found.");
+									}
+								}
+								else
+								{
+									Console.WriteLine("\nInvalid post number. Please enter a valid number.");
+								}
+							}
+							else
+							{
+								Console.WriteLine("\nNo posts found for this user.");
+							}
+						}
 						break;
+
 
 					case "5":
 						Console.Write("\nEnter the username of the user whose post you want to like or dislike: ");
