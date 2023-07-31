@@ -219,25 +219,67 @@ namespace UI
 						break;
 
 					case "4":
-						Console.WriteLine("Delete a post:");
-						Console.Write("Enter the Username to delete a post: ");
-						string username = Console.ReadLine();
 
-						//bool correctuser = _userManager.CorrectUser(username);
+                        Console.WriteLine($"\nUSERNAME: {loggedInUsername}");
+                        bool isAdmin2 = loggedInUsername.Equals("ADMIN", StringComparison.OrdinalIgnoreCase);
 
-						//if (correctuser)
-						//{
-						//	Console.WriteLine("Enter Post Number to Delete: ");
-						//	int postNumberToDelete = int.Parse(Console.ReadLine());
-						//	_postManager.DeletePost(postNumberToDelete);
-						//}
-						//else
-						//{
-						//	Console.WriteLine("Invalid username. Please try again.");
-						//}
+                        if (isAdmin2)
+                        {
+                            Console.WriteLine("\nDo you want to delete your own post or the post of another user?");
+                            Console.WriteLine("1. Delete your own post");
+                            Console.WriteLine("2. Delete a post of another user");
+                            Console.Write("Enter your choice (1 or 2): ");
+                            if (int.TryParse(Console.ReadLine(), out int choice2))
+                            {
+                                switch (choice2)
+                                {
+                                    case 1:
+                                        _postManager.DeleteOwnPost(loggedInUsername);
+										if(_postManager.DeleteOwnPost(loggedInUsername))
+										{
+                                            Console.WriteLine("\n------------------- Post Deleted Successfully! ------------------");
+                                        }
+										else
+										{
+                                            Console.WriteLine("\n------------------- Invalid post number or post not found -------------------");
+                                        }
+                                        break;
+                                    case 2:
+                                        bool isAdmin3 = loggedInUsername.Equals("ADMIN", StringComparison.OrdinalIgnoreCase);
+										if(isAdmin3)
+										{
+                                            Console.Write("\nEnter the username of the user whose post you want to delete: ");
+											_postManager.DeletePostForUser(loggedInUsername);
+                                        }
+
+                                        //_postManager.DeletePostForUser(loggedInUsername);
+                                        break;
+                                    default:
+                                        Console.WriteLine("\n------------------- Invalid choice. Please enter 1 or 2 -------------------");
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n------------------- Invalid input. Please enter a valid choice -------------------");
+                            }
+                        }
+                        else
+                        {
+                            _postManager.DeleteOwnPost(loggedInUsername);
+                            if (_postManager.DeleteOwnPost(loggedInUsername))
+                            {
+                                Console.WriteLine("\n------------------- Post Deleted Successfully! ------------------");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n------------------- Invalid post number or post not found -------------------");
+                            }
+                        }
 
 
-						break;
+                        //_postManager.DeleteOwnPostOrForUser(loggedInUsername);
+                        break;
 
 					case "5":
 						loggedIn = false;
