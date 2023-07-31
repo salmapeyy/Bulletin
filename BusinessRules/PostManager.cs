@@ -76,14 +76,6 @@ namespace BusinessRules
 			return false;
 		}
 
-
-		public void DeleteOwnPostOrForUser(string username)
-		{
-			var posts = GetPostsForUser(username);
-		}
-
-
-
 		//METHODS FOR LIKE AND DISLIKE
 		public void LikeOrDislikePost(int postNumber, bool isLiked)
 		{
